@@ -1,0 +1,43 @@
+name: Build ExactHousing full-room v09 patch
+on:
+  push:
+    branches:
+      - exacthousing-fullroom-v09-fix
+  workflow_dispatch:
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Validate original story and compact material study
+        run: |
+          grep -q 'id="ehx-material-study"' index.html
+          grep -q 'id="ehx-journey"' index.html
+          grep -q 'id="ehx-project"' index.html
+          grep -q 'id="ehx-services"' index.html
+          grep -q 'id="ehx-pricing"' index.html
+          grep -q 'id="ehx-contact"' index.html
+          grep -q 'data-jump="4"' index.html
+          grep -q 'function initScene(root)' assets/story.js
+          grep -q 'ehx-material-presets{display:none!important}' assets/story.css
+          grep -q 'width:min(750px,calc(100% - 36px))' assets/story.css
+          node --input-type=module --check < assets/story.js
+      - name: Build overlay patch ZIP
+        run: |
+          rm -rf build
+          mkdir -p build/overlay/assets
+          cp index.html build/overlay/index.html
+          cp assets/story.css assets/story.js build/overlay/assets/
+          cp README-PATCH.txt build/overlay/README-MERGE.txt
+          (cd build/overlay && zip -qr ../../exacthousing-fullroom-v09-fix-patch.zip .)
+          unzip -t exacthousing-fullroom-v09-fix-patch.zip
+          unzip -l exacthousing-fullroom-v09-fix-patch.zip
+      - name: Upload patch package
+        uses: actions/upload-artifact@v4
+        with:
+          name: exacthousing-fullroom-v09-fix-patch
+          path: exacthousing-fullroom-v09-fix-patch.zip
+          if-no-files-found: error
