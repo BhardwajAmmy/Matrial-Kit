@@ -17,7 +17,7 @@ const assert = require('node:assert/strict');
     const response = await page.goto('http://127.0.0.1:4173/index.html', { waitUntil: 'domcontentloaded' });
     assert.equal(response.status(), 200, 'homepage should load');
 
-    await page.waitForFunction(() => document.querySelector('.ehx-site')?.dataset.ehxReady === '1', null, { timeout: 15000 });
+    await page.waitForFunction(() => document.querySelector('.ehx-site')?.dataset.ehxRoomRendered === '1', null, { timeout: 20000 });
     await page.waitForTimeout(1800);
 
     const desktop = await page.evaluate(() => {
@@ -48,13 +48,15 @@ const assert = require('node:assert/strict');
       };
     });
     assert.equal(desktop.room, true, 'room canvas should initialise');
-    assert.ok(desktop.cssUrl.includes('story.css?v=1.0.1'), 'stylesheet cache key must be fresh');
+    assert.ok(desktop.cssUrl.includes('story.css?v=1.0.2'), 'stylesheet cache key must be fresh');
     assert.ok(desktop.configuratorMaxWidth <= 465.5, 'material panel must stay under 466px on desktop');
+    assert.ok(desktop.materialColumnGridTemplate.includes('78px'), 'compact material heading should stay narrow');
     assert.equal(desktop.configuratorDisplay, 'block', 'compact configurator must use the expected display mode');
     assert.equal(desktop.materialColumnDisplay, 'grid', 'surface controls must use the compact inline grid');
     assert.match(desktop.materialColumnGridTemplate, /78px/, 'surface label column should stay narrow');
     assert.ok(desktop.viewerWidth > 400, 'room should have a substantial visual area');
     assert.ok(desktop.panelWidth > 0 && desktop.panelWidth < desktop.viewerWidth * 0.75, 'material controls should stay compact');
+    assert.ok(await page.locator('.ehx-room-canvas').evaluate(c => c.width > 0 && c.height > 0), '3D canvas should have a real render surface');
     assert.equal(desktop.paletteColumn, false, 'large palette column must be removed');
     assert.equal(desktop.imageHero, false, 'hero must use the actual procedural 3D room, not the old scene images');
     assert.equal(desktop.story, true, 'original particle story canvas must remain');
