@@ -1,4 +1,4 @@
-name: Validate ExactHousing room studio
+name: Validate and package ExactHousing room studio
 on:
   push:
     branches:
@@ -12,6 +12,18 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
+      - name: Build installable packages
+        run: |
+          rm -rf dist
+          mkdir -p dist/standalone/assets dist/plugin/exacthousing-material-studio/assets
+          cp index.html README.md dist/standalone/
+          cp assets/studio.css assets/studio.js dist/standalone/assets/
+          (cd dist/standalone && zip -qr ../exacthousing-standalone.zip .)
+          cp wordpress-plugin/exacthousing-material-studio.php dist/plugin/exacthousing-material-studio/
+          cp wordpress-plugin/readme.txt dist/plugin/exacthousing-material-studio/
+          cp wordpress-plugin/assets/template.html dist/plugin/exacthousing-material-studio/assets/
+          cp assets/studio.css assets/studio.js dist/plugin/exacthousing-material-studio/assets/
+          (cd dist/plugin && zip -qr ../exacthousing-wordpress-plugin.zip exacthousing-material-studio)
       - name: Install browser test tools
         run: |
           npm init -y
@@ -33,13 +45,16 @@ jobs:
         run: node --check assets/studio.js
       - name: Check WordPress PHP syntax
         run: php -l wordpress-plugin/exacthousing-material-studio.php
-      - name: Verify standalone ZIP
-        run: unzip -t downloads/exacthousing-standalone.zip
-      - name: Verify WordPress plugin ZIP
-        run: unzip -t downloads/exacthousing-wordpress-plugin.zip
-      - name: Check package contents
+      - name: Verify distribution ZIPs
         run: |
-          unzip -l downloads/exacthousing-standalone.zip
-          unzip -l downloads/exacthousing-wordpress-plugin.zip
-          unzip -p downloads/exacthousing-wordpress-plugin.zip exacthousing-material-studio/exacthousing-material-studio.php | grep -q "Plugin Name: ExactHousing Material Studio"
-          unzip -p downloads/exacthousing-wordpress-plugin.zip exacthousing-material-studio/assets/studio.js | grep -q "OrbitControls"
+          unzip -t dist/exacthousing-standalone.zip
+          unzip -t dist/exacthousing-wordpress-plugin.zip
+          unzip -p dist/exacthousing-wordpress-plugin.zip exacthousing-material-studio/exacthousing-material-studio.php | grep -q "Plugin Name: ExactHousing Material Studio"
+          unzip -p dist/exacthousing-wordpress-plugin.zip exacthousing-material-studio/assets/studio.js | grep -q "OrbitControls"
+      - name: Upload install packages
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: exacthousing-integrated-v2-packages
+          path: dist/*.zip
+          if-no-files-found: error

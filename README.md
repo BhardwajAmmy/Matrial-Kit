@@ -1,20 +1,11 @@
-ExactHousing Room Studio
-========================
+## ExactHousing Room Studio — Integrated v2
 
-A lightweight procedural Three.js room configurator with independent 3D material groups.
+This branch contains the ExactHousing homepage and lightweight procedural Three.js material studio.
 
-STANDALONE HTML
-The repository root contains index.html and assets/studio.css plus assets/studio.js. Upload those items to your Hostinger preview folder so the assets folder sits beside index.html. The page loads Three.js from jsDelivr, so internet access is required.
+Included: the compact two-column material panel, independent surface selections, a completed left-side wall with a glazed opening, the scroll-driven particle-to-floor-plan-to-house story, and the existing process, services and contact sections.
 
-WORDPRESS PLUGIN
-Use the installable ZIP under downloads/exacthousing-wordpress-plugin.zip. In WordPress go to Plugins > Add New > Upload Plugin, upload that ZIP and activate it. Add [exacthousing_studio] to a page with a Shortcode block or Elementor Shortcode widget. Use a full-width/blank page template to avoid a duplicate theme header.
+Standalone: download exacthousing-standalone.zip from the latest successful workflow run at https://github.com/BhardwajAmmy/Matrial-Kit/actions/workflows/validate-room-studio.yml. Extract index.html and assets/ into the same preview folder.
 
-CONTROLS
-- Drag to rotate the room. Use mouse wheel or touch pinch to zoom.
-- Click a room hotspot or a tagged 3D object to select its material group.
-- Change cabinetry, walls, flooring and countertops independently.
-- Apply a curated palette and then continue adjusting individual surfaces.
-- Reset materials and camera view separately.
+WordPress: download exacthousing-wordpress-plugin.zip from the same workflow artifact. Install through Plugins > Add New > Upload Plugin, activate it, and add [exacthousing_studio] to a full-width Elementor page. Use a blank/canvas page template to avoid duplicate theme headers.
 
-NOTES
-This is a lightweight procedural concept room. Editable surfaces are real separate 3D meshes and material selections stay independent. It is not a photorealistic replacement for a production 3ds Max render. Please test on your hosting and on representative mobile devices before replacing the live homepage.
+The room is a lightweight conceptual web model, not a construction model. The particle story uses a separate 2D canvas. Three.js and OrbitControls load from jsDelivr and require an internet connection.

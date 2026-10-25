@@ -24,12 +24,16 @@ const { chromium } = require("playwright");
     return {
       title: document.title,
       canvas: !!canvas && canvas.width > 0 && canvas.height > 0,
+      morphCanvas: !!root.querySelector(".ehx-morph-canvas"),
+      morphStory: !!root.querySelector(".ehx-morph-story"),
       gridColumns: columns,
       status: root.querySelector(".ehx-current-palette").textContent.trim(),
       canvasPixels: canvas ? canvas.toDataURL().length : 0
     };
   });
   assert.equal(desktop.canvas, true, "3D canvas should initialise");
+  assert.equal(desktop.morphCanvas, true, "particle story canvas should exist");
+  assert.equal(desktop.morphStory, true, "process story should be preserved");
   assert.equal(desktop.gridColumns, 2, "desktop configurator should use two columns");
   assert.ok(desktop.canvasPixels > 1000, "canvas should render pixels");
 
@@ -46,6 +50,8 @@ const { chromium } = require("playwright");
   assert.equal(await page.locator(".ehx-current-palette").innerText(), "MODERN CONTRAST");
   await page.locator(".ehx-reset-materials").click();
   assert.equal(await page.locator(".ehx-current-palette").innerText(), "WARM MINIMAL");
+  await page.locator(".ehx-morph-story").scrollIntoViewIfNeeded();
+  await page.waitForTimeout(350);
   await page.screenshot({ path: "artifacts/ehx-desktop.png", fullPage: true });
 
   const mobile = await browser.newPage({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 1 });

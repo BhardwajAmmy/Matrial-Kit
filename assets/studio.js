@@ -32,6 +32,16 @@ import { OrbitControls } from "three/addons/controls/OrbitControls.js";
  function cyl(name,rt,rb,h,pos,material,segments){const m=new THREE.Mesh(new THREE.CylinderGeometry(rt,rb,h,segments||20),material);m.name=name;m.position.set(pos[0],pos[1],pos[2]);m.castShadow=true;m.receiveShadow=true;scene.add(m);return m;}
  const floor=new THREE.Mesh(new THREE.PlaneGeometry(12,9.4),catalog.flooring[0].material);floor.name="CFG_Floor";floor.rotation.x=-Math.PI/2;floor.position.set(0,.015,0);floor.receiveShadow=true;floor.userData.surface="flooring";objects.flooring.push(floor);scene.add(floor);
  box("CFG_Wall_Back_Left",[1.2,5.2,.16],[-5.4,2.6,-4.68],catalog.walls[0].material,"walls",false);box("CFG_Wall_Back_Right",[7,5.2,.16],[2.5,2.6,-4.68],catalog.walls[0].material,"walls",false);box("CFG_Wall_Back_Header",[3.8,1.15,.16],[-2.5,4.62,-4.68],catalog.walls[0].material,"walls",false);box("CFG_Wall_Back_Sill",[3.8,.35,.16],[-2.5,.18,-4.68],catalog.walls[0].material,"walls",false);box("CFG_Wall_Right",[.16,5.2,3],[5.92,2.6,-3.2],catalog.walls[0].material,"walls",false);
+ // Complete the missing left wall with a wide glazed opening.
+ box("CFG_Wall_Left_Rear",[.16,5.2,2.25],[-5.92,2.6,-3.54],catalog.walls[0].material,"walls",false);
+ box("CFG_Wall_Left_Front",[.16,5.2,2.25],[-5.92,2.6,3.54],catalog.walls[0].material,"walls",false);
+ box("CFG_Wall_Left_Header",[.16,1.05,4.95],[-5.92,4.675,0],catalog.walls[0].material,"walls",false);
+ box("CFG_Wall_Left_Sill",[.16,.5,4.95],[-5.92,.25,0],catalog.walls[0].material,"walls",false);
+ box("CFG_Left_Window_Glass",[.035,3.65,4.88],[-5.82,2.50,0],fixed.glass,null,false);
+ [-2.43,0,2.43].forEach(z=>box("CFG_Left_Window_Mullion",[.055,3.68,.055],[-5.77,2.5,z],fixed.metal,null,false));
+ box("CFG_Left_Window_Head",[.06,.055,4.98],[-5.77,4.15,0],fixed.metal,null,false);
+ box("CFG_Left_Window_Base",[.06,.06,4.98],[-5.77,.60,0],fixed.metal,null,false);
+
  box("Window glazing",[3.65,3.55,.035],[-2.5,2.34,-4.60],fixed.glass,null,false);[-4.31,-2.5,-.69].forEach(x=>box("Window mullion",[.045,3.62,.055],[x,2.34,-4.56],fixed.metal,null,false));box("Window frame top",[3.75,.055,.07],[-2.5,4.15,-4.56],fixed.metal,null,false);box("Window frame bottom",[3.75,.06,.08],[-2.5,.56,-4.55],fixed.metal,null,false);
  const lowerX=[-.5,.42,1.34,2.26,3.18,4.1,5.02];lowerX.forEach((x,i)=>{box("CFG_Cabinet_Lower_Carcass_"+i,[.88,.88,.68],[x,.47,-4.13],catalog.cabinetry[0].material,"cabinetry");box("CFG_Cabinet_Lower_Front_"+i,[.82,.80,.05],[x,.48,-3.77],catalog.cabinetry[0].material,"cabinetry");box("Cabinet pull "+i,[.018,.12,.04],[x+.28,.50,-3.73],fixed.metal,null);});
  [0,.98,1.96,2.94,3.92,4.90].forEach((x,i)=>{box("CFG_Cabinet_Upper_Carcass_"+i,[.92,1.22,.47],[x,3.10,-4.40],catalog.cabinetry[0].material,"cabinetry");box("CFG_Cabinet_Upper_Front_"+i,[.86,1.14,.04],[x,3.10,-4.14],catalog.cabinetry[0].material,"cabinetry");box("Upper pull "+i,[.018,.12,.035],[x+.28,2.83,-4.11],fixed.metal,null);});
@@ -65,6 +75,103 @@ import { OrbitControls } from "three/addons/controls/OrbitControls.js";
  canvas.addEventListener("pointerdown",e=>{start={x:e.clientX,y:e.clientY};});
  canvas.addEventListener("pointerup",e=>{if(!start)return;const dist=Math.hypot(e.clientX-start.x,e.clientY-start.y);start=null;if(dist>6)return;const r=canvas.getBoundingClientRect();pointer.x=((e.clientX-r.left)/r.width)*2-1;pointer.y=-((e.clientY-r.top)/r.height)*2+1;raycaster.setFromCamera(pointer,camera);const hits=raycaster.intersectObjects(scene.children,true);const hit=hits.find(h=>h.object.userData.surface);if(hit){activeCategory=hit.object.userData.surface;updateUI();root.querySelectorAll(".ehx-hotspot").forEach(b=>b.classList.toggle("active",b.dataset.focusCategory===activeCategory));}});
  function resize(){const host=canvas.parentElement;if(!host)return;const w=host.clientWidth,h=host.clientHeight;if(!w||!h)return;renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix();}
- const observer=new ResizeObserver(resize);observer.observe(canvas.parentElement);resize();updateUI();
+ 
+ function initMorphStory(root){
+  const section=root.querySelector(".ehx-morph-story"),canvas=root.querySelector(".ehx-morph-canvas");
+  if(!section||!canvas)return;
+  const ctx=canvas.getContext("2d");if(!ctx)return;
+  let W=0,H=0,DPR=1,progress=0,raf=0,active=false,lastPhase=-1;
+  const reduced=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const copy=[
+   {num:"01",title:"A thought becomes a <em>possibility.</em>",desc:"Before the first line, we begin with how you want to live. The early ideas are loose, but each one points toward a more considered home.",caption:"Loose thoughts. A direction begins.",stage:"01 — THE IDEA"},
+   {num:"02",title:"Every idea needs <em>its place.</em>",desc:"The dots find their relationships. Rooms, routes, privacy and light become a plan that makes sense for everyday life.",caption:"Space finds its purpose.",stage:"02 — THE PLAN"},
+   {num:"03",title:"The drawing starts to become <em>real.</em>",desc:"A plan rises into form. Clear design decisions help connect what is imagined with what can be built.",caption:"From drawing to structure.",stage:"03 — THE FORM"}
+  ];
+  const blendPoint=(a,b,t)=>({x:a.x+(b.x-a.x)*t,y:a.y+(b.y-a.y)*t});
+  const smooth=t=>{t=Math.max(0,Math.min(1,t));return t*t*(3-2*t)};
+  const random=(a,b)=>a+Math.random()*(b-a);
+  const scatter=Array.from({length:230},()=>({x:random(-.94,.94),y:random(-.82,.82)}));
+  const planLines=[
+   [-.82,-.62,.82,-.62],[-.82,-.62,-.82,.62],[.82,-.62,.82,.62],[-.82,.62,.82,.62],
+   [-.82,.12,-.14,.12],[-.02,.12,.82,.12],[-.20,-.62,-.20,.12],[.30,.12,.30,.62],
+   [.30,-.24,.82,-.24],[-.20,-.34,-.55,-.34],[-.55,-.34,-.55,-.62],
+   [-.02,.12,-.02,.62],[.30,.40,.58,.40],[.58,.40,.58,.12],[-.68,.62,-.68,.32],[-.68,.32,-.82,.32]
+  ];
+  const houseLines=[
+   [-.58,-.43,.36,-.43],[.36,-.43,.36,.22],[.36,.22,-.58,.22],[-.58,.22,-.58,-.43],
+   [-.58,.22,-.12,.55],[-.12,.55,.36,.22],[-.58,-.43,-.28,-.22],[.36,-.43,.68,-.22],
+   [.36,.22,.68,.43],[-.28,-.22,.68,-.22],[-.28,-.22,-.28,.43],[.68,-.22,.68,.43],
+   [-.28,.43,.68,.43],[-.12,.55,.22,.76],[.22,.76,.68,.43],[.22,.76,.22,.08],[-.28,.43,.22,.76],
+   [-.40,-.43,-.40,-.02],[-.40,-.02,-.16,-.02],[-.16,-.02,-.16,-.43],
+   [-.02,-.10,.20,-.10],[.20,-.10,.20,.12],[-.02,.12,-.02,-.10],[.44,-.22,.44,.06],
+   [.44,.06,.60,.06],[.60,.06,.60,-.22]
+  ];
+  function sampleLines(lines,count){
+   const segs=lines.map(l=>({x1:l[0],y1:l[1],x2:l[2],y2:l[3],len:Math.hypot(l[2]-l[0],l[3]-l[1])}));
+   const total=segs.reduce((n,s)=>n+s.len,0);
+   return Array.from({length:count},(_,i)=>{
+    let d=(i/(count-1))*total,seg=segs[segs.length-1];
+    for(const s of segs){if(d<=s.len){seg=s;break;}d-=s.len;}
+    const t=seg.len?d/seg.len:0;return{x:seg.x1+(seg.x2-seg.x1)*t,y:seg.y1+(seg.y2-seg.y1)*t};
+   });
+  }
+  const plan=sampleLines(planLines,scatter.length),house=sampleLines(houseLines,scatter.length);
+  function resize(){
+   const r=canvas.getBoundingClientRect();if(!r.width||!r.height)return;
+   W=r.width;H=r.height;DPR=Math.min(window.devicePixelRatio||1,1.6);
+   canvas.width=Math.round(W*DPR);canvas.height=Math.round(H*DPR);
+   ctx.setTransform(DPR,0,0,DPR,0,0);draw(performance.now());
+  }
+  function phase(){return progress<.335?0:progress<.68?1:2}
+  function updateCopy(){
+   const nphase=phase();if(nphase===lastPhase)return;lastPhase=nphase;const d=copy[nphase];
+   const n=section.querySelector("[data-morph-number]"),title=section.querySelector("[data-morph-title]"),desc=section.querySelector("[data-morph-description]"),cap=section.querySelector("[data-morph-caption]"),stage=section.querySelector("[data-morph-stage]");
+   if(n)n.textContent=d.num;if(title)title.innerHTML=d.title;if(desc)desc.textContent=d.desc;if(cap)cap.textContent=d.caption;if(stage)stage.textContent=d.stage;
+   section.querySelectorAll("[data-morph-go]").forEach(b=>b.classList.toggle("active",Number(b.dataset.morphGo)===nphase));
+  }
+  function readScroll(){
+   const rect=section.getBoundingClientRect(),range=Math.max(1,section.offsetHeight-window.innerHeight);
+   progress=Math.max(0,Math.min(1,-rect.top/range));
+   const bar=section.querySelector("[data-morph-progress-bar]");if(bar)bar.style.width=(progress*100).toFixed(1)+"%";
+   updateCopy();if(active&&!raf)raf=requestAnimationFrame(loop);
+  }
+  function draw(now){
+   if(!W||!H)return;ctx.clearRect(0,0,W,H);
+   ctx.strokeStyle="rgba(72,91,76,.055)";ctx.lineWidth=.65;const grid=32;
+   for(let x=W%grid;x<W;x+=grid){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke()}
+   for(let y=H%grid;y<H;y+=grid){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke()}
+   const v=progress*2,from=v<1?scatter:plan,to=v<1?plan:house,blend=smooth(v<1?v:v-1),unit=Math.min(W*.47,H*.53);
+   const positions=scatter.map((p,i)=>{
+    const p0=from[i],p1=to[i],v2=blendPoint(p0,p1,blend),drift=reduced?0:1.65;
+    return{x:W*.5+v2.x*unit+Math.sin(now*.00048+i*1.73)*drift,y:H*.5-v2.y*unit+Math.cos(now*.00042+i*1.29)*drift};
+   });
+   const limit=Math.min(52,unit*.19);ctx.lineWidth=.7;
+   for(let i=0;i<positions.length;i++){
+    const a=positions[i];
+    for(let j=i+1;j<positions.length;j++){
+     const b=positions[j],dx=a.x-b.x,dy=a.y-b.y,d2=dx*dx+dy*dy;
+     if(d2<limit*limit){const d=Math.sqrt(d2),alpha=(1-d/limit)*(.10+progress*.055);
+      ctx.strokeStyle="rgba(65,91,73,"+alpha+")";ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();}
+    }
+   }
+   positions.forEach((p,i)=>{ctx.beginPath();ctx.fillStyle=i%13===0?"rgba(179,121,81,.9)":"rgba(67,94,76,.66)";ctx.arc(p.x,p.y,i%13===0?1.8:1.15,0,Math.PI*2);ctx.fill()});
+  }
+  function loop(now){raf=0;if(!active)return;draw(now);if(!reduced)raf=requestAnimationFrame(loop)}
+  section.querySelectorAll("[data-morph-go]").forEach(b=>b.addEventListener("click",()=>{
+   const range=Math.max(1,section.offsetHeight-window.innerHeight),n=Number(b.dataset.morphGo);
+   const target=section.getBoundingClientRect().top+window.scrollY+range*(n/2);
+   window.scrollTo({top:target,behavior:reduced?"auto":"smooth"});
+  }));
+  window.addEventListener("scroll",readScroll,{passive:true});
+  const ro=new ResizeObserver(resize);ro.observe(canvas.parentElement);
+  const io=new IntersectionObserver(entries=>{
+   active=entries[0].isIntersecting;
+   if(active){readScroll();if(!raf)raf=requestAnimationFrame(loop)}
+   else if(raf){cancelAnimationFrame(raf);raf=0}
+  },{threshold:.01});
+  io.observe(section);resize();readScroll();
+ }
+
+ initMorphStory(root);const observer=new ResizeObserver(resize);observer.observe(canvas.parentElement);resize();updateUI();
  let running=true;document.addEventListener("visibilitychange",()=>{running=!document.hidden;});function animate(){requestAnimationFrame(animate);if(!running)return;controls.update();renderer.render(scene,camera);}animate();if(loading)window.setTimeout(()=>loading.classList.add("hidden"),450);
 })();

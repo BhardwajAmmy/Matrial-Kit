@@ -1,19 +1,18 @@
 === ExactHousing Material Studio ===
 Contributors: exacthousing
-Tags: 3d, interior-design, materials
-Requires at least: 6.0
+Tags: interior design, three.js, material configurator, residential design
+Requires at least: 6.5
 Tested up to: 6.8
-Requires PHP: 7.4
-Stable tag: 1.0.0
+Stable tag: 1.1.0
 License: GPLv2 or later
 
-A lightweight interactive 3D room with independent material selection for cabinetry, walls, flooring and countertops.
+A lightweight procedural 3D room material studio with independent surface controls and a scroll-driven idea-to-plan-to-house story.
 
 == Installation ==
-1. Upload the ZIP from Plugins > Add New > Upload Plugin.
+1. Upload the ZIP through Plugins > Add New > Upload Plugin.
 2. Activate the plugin.
-3. Add [exacthousing_studio] to a page using a Shortcode block or Elementor Shortcode widget.
-4. Use a full-width or blank page template for the intended layout.
+3. Add [exacthousing_studio] to a full-width page or Elementor Shortcode widget.
+4. Use a blank/canvas page template to avoid duplicate theme headers.
 
 == Notes ==
-The plugin loads Three.js modules from jsDelivr and requires internet access. The room is procedural and designed as a starting concept. Test with your active theme and hosting before using on a live homepage.
+The room is a conceptual web model, not a construction model. Three.js is loaded from jsDelivr and requires an internet connection.

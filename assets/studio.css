@@ -31,3 +31,61 @@
 @media(max-width:850px){.ehx-header{padding:13px 22px}.ehx-header nav{gap:15px}.ehx-header nav a:not(.ehx-nav-cta){display:none}.ehx-home-hero{padding:25px 22px}.ehx-hero-grid{grid-template-columns:1fr;gap:23px}.ehx-hero-copy{max-width:720px;padding:20px 0 0}.ehx-hero-copy h1{font-size:clamp(57px,9vw,78px);margin:20px 0 16px}.ehx-lead{max-width:550px}.ehx-proof{margin-top:24px}.ehx-small-note{margin-top:22px}.ehx-viewer{height:clamp(430px,58vh,570px)}.ehx-config-grid{grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr)}.ehx-process-intro,.ehx-services-head{align-items:flex-start;flex-direction:column}.ehx-process-intro>p,.ehx-services-head>p{max-width:580px}}
 @media(max-width:600px){.ehx-header{min-height:66px;padding:11px 16px;gap:12px}.ehx-brand{font-size:22px}.ehx-brand small{font-size:7px;letter-spacing:1.8px}.ehx-header .ehx-nav-cta{padding:10px 11px;font-size:10px}.ehx-home-hero{padding:18px 13px 24px}.ehx-hero-copy{padding-top:15px}.ehx-hero-copy h1{font-size:57px;letter-spacing:-2.2px;margin:18px 0 14px}.ehx-lead{font-size:12px;line-height:1.75}.ehx-proof{gap:18px}.ehx-proof strong{font-size:22px}.ehx-proof span{font-size:8px}.ehx-room-topline,.ehx-room-caption{font-size:7px;letter-spacing:1px}.ehx-room-topline span:last-child,.ehx-room-caption span:last-child{display:none}.ehx-viewer{height:420px;min-height:360px}.ehx-hotspot{font-size:8px;padding:4px 7px 4px 4px;gap:5px}.ehx-hotspot>span{width:19px;height:19px;font-size:12px}.ehx-hotspot-wall{top:33%;left:48%}.ehx-hotspot-cabinet{top:48%;left:64%}.ehx-hotspot-floor{top:76%;left:48%}.ehx-hotspot-counter{top:60%;left:64%}.ehx-config-grid{grid-template-columns:1fr}.ehx-material-column{border-right:0;border-bottom:1px solid var(--line);padding:15px 12px}.ehx-palette-column{padding:15px 12px}.ehx-config-heading h2{font-size:21px}.ehx-tabs{margin-top:10px}.ehx-tab{padding:10px 9px;font-size:9px}.ehx-options{gap:5px;margin-top:9px}.ehx-option{padding:5px}.ehx-swatch{height:34px}.ehx-option-name{font-size:9px}.ehx-palette-header h3{font-size:18px}.ehx-presets{gap:7px;margin-top:12px}.ehx-preset-swatches{height:35px}.ehx-preset strong{font-size:9px}.ehx-preset small{font-size:8px}.ehx-scroll-cue{font-size:7px;letter-spacing:1px}.ehx-process{padding:56px 20px}.ehx-process h2{font-size:44px}.ehx-process-grid{grid-template-columns:1fr 1fr;margin-top:30px}.ehx-process-grid article{padding:20px 15px;min-height:175px}.ehx-process-grid h3{font-size:20px;margin:23px 0 8px}.ehx-process-grid p{font-size:10px}.ehx-services{padding:54px 20px}.ehx-services h2{font-size:39px}.ehx-service-grid{grid-template-columns:1fr;margin-top:24px}.ehx-service-grid article{padding:20px 0;margin:0;border-right:0;border-bottom:1px solid var(--line)}.ehx-service-grid article:last-child{border-bottom:0}.ehx-service-grid h3{margin:13px 0 6px}.ehx-contact{padding:50px 20px;align-items:flex-start;flex-direction:column}.ehx-contact h2{font-size:40px}.ehx-footer{padding:20px;flex-direction:column;font-size:7px}}
 @media(prefers-reduced-motion:reduce){.ehx-site *{scroll-behavior:auto!important;transition:none!important}}
+
+/* Integrated layout v2: the configurator is an understated design-study panel. */
+.ehx-configurator{margin-top:9px;box-shadow:none;background:transparent;border:0}
+.ehx-config-grid{grid-template-columns:minmax(0,.72fr) minmax(0,1.28fr);gap:0}
+.ehx-material-column,.ehx-palette-column{padding:11px 14px;background:var(--panel);min-width:0}
+.ehx-material-column{border:1px solid var(--line);border-right:0}
+.ehx-palette-column{border:1px solid var(--line)}
+.ehx-config-heading h2{font-size:20px;margin-top:4px}.ehx-config-heading p{font-size:9px}
+.ehx-live-status{font-size:7px;padding:4px 6px}.ehx-tabs{margin-top:7px}.ehx-tab{padding:7px 9px 6px;font-size:9px}
+.ehx-options{margin-top:7px;gap:5px}.ehx-option{padding:4px 5px 5px}.ehx-swatch{height:25px;margin-bottom:5px}
+.ehx-option-name{font-size:8px}.ehx-selection-note{font-size:8px;margin-top:5px}
+.ehx-palette-header h3{font-size:17px;margin-top:4px}.ehx-presets{margin-top:8px;gap:6px}
+.ehx-preset{padding:5px}.ehx-preset-swatches{height:20px;margin-bottom:5px}.ehx-preset strong{font-size:8px}.ehx-preset small{font-size:7px}
+.ehx-palette-foot{padding-top:6px;margin-top:7px}.ehx-palette-foot>span:last-child{font-size:7px}.ehx-scroll-cue{padding-top:12px}
+
+/* Restored scroll-driven chapter: the particles become a floor plan, then a wireframe house. */
+.ehx-morph-story{position:relative;height:230vh;background:#f1eee5;color:var(--ink);border-top:1px solid var(--line)}
+.ehx-morph-sticky{position:sticky;top:0;min-height:100vh;height:100svh;max-height:1000px;display:grid;grid-template-columns:minmax(260px,.72fr) minmax(0,1.28fr);grid-template-rows:1fr auto;align-items:center;gap:clamp(20px,4vw,64px);padding:clamp(28px,5vw,76px) clamp(22px,6vw,92px) 22px;overflow:hidden}
+.ehx-morph-copy{position:relative;z-index:2;max-width:440px}
+.ehx-morph-chapter{font-size:9px;letter-spacing:1.7px;color:#837866;margin-top:30px;text-transform:uppercase}.ehx-morph-chapter strong{font-weight:600;color:#b47c55}
+.ehx-morph-copy h2{font:400 clamp(38px,4.3vw,61px)/1.08 "Playfair Display",Georgia,serif;letter-spacing:-1.8px;margin:17px 0 18px;color:#20362f}
+.ehx-morph-copy h2 em{font-weight:400;color:#b47c55}.ehx-morph-copy>p{font-size:13px;line-height:1.9;color:#6e746a;max-width:350px;margin:0}
+.ehx-morph-nav{display:flex;flex-direction:column;gap:5px;margin-top:30px;max-width:285px}
+.ehx-morph-nav button{display:flex;align-items:center;gap:14px;text-align:left;border:1px solid transparent;background:transparent;color:#74786e;padding:10px 11px;font-size:11px;transition:background .2s,border-color .2s,color .2s}
+.ehx-morph-nav button span{font-size:9px;letter-spacing:1px;color:#a37d5c}
+.ehx-morph-nav button.active{border-color:rgba(32,54,47,.18);background:rgba(255,253,247,.8);color:#20362f}
+.ehx-morph-progress{height:2px;max-width:285px;background:rgba(32,54,47,.12);margin-top:17px;overflow:hidden}
+.ehx-morph-progress span{display:block;width:0;height:100%;background:#b47c55;transition:width .15s linear}
+.ehx-morph-caption{font-size:9px;letter-spacing:.8px;color:#888879;margin-top:11px}
+.ehx-morph-art{position:relative;height:min(75vh,760px);min-height:340px;min-width:0}.ehx-morph-canvas{width:100%;height:100%;display:block}
+.ehx-morph-art-label,.ehx-morph-art-foot{position:absolute;left:0;right:0;display:flex;justify-content:space-between;gap:10px;color:#848579;font-size:8px;letter-spacing:1.5px;pointer-events:none}
+.ehx-morph-art-label{top:0}.ehx-morph-art-foot{bottom:0}.ehx-morph-art-foot span:last-child{color:#a77956}
+.ehx-morph-scroll{grid-column:1/-1;display:flex;justify-content:center;gap:12px;align-items:center;color:#838577;font-size:8px;letter-spacing:1.6px}
+.ehx-morph-scroll span{font-size:14px;color:#b47c55}
+@media(max-width:1100px){
+ .ehx-config-grid{grid-template-columns:minmax(0,.75fr) minmax(0,1.25fr)}.ehx-material-column,.ehx-palette-column{padding:10px}
+ .ehx-morph-sticky{grid-template-columns:minmax(235px,.78fr) minmax(0,1.22fr);gap:24px;padding-left:5vw;padding-right:5vw}
+ .ehx-morph-copy h2{font-size:clamp(37px,4.5vw,52px)}
+}
+@media(max-width:850px){
+ .ehx-config-grid{grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr)}.ehx-morph-story{height:205vh}
+ .ehx-morph-sticky{grid-template-columns:minmax(210px,.78fr) minmax(0,1.22fr);gap:18px;padding:32px 22px 18px}
+ .ehx-morph-copy h2{font-size:clamp(34px,5.3vw,46px)}.ehx-morph-nav{margin-top:18px}
+ .ehx-morph-nav button{padding:8px}.ehx-morph-art{height:66vh;min-height:320px}
+}
+@media(max-width:600px){
+ .ehx-config-grid{grid-template-columns:1fr}.ehx-material-column{border-right:1px solid var(--line);border-bottom:0;padding:12px}
+ .ehx-palette-column{padding:12px}.ehx-config-heading h2{font-size:20px}.ehx-swatch{height:29px}.ehx-preset-swatches{height:18px}
+ .ehx-morph-story{height:220vh}.ehx-morph-sticky{display:grid;grid-template-columns:1fr;grid-template-rows:auto minmax(0,1fr) auto;gap:8px;padding:24px 16px 16px;height:100svh}
+ .ehx-morph-copy{max-width:none}.ehx-morph-chapter{margin-top:14px;font-size:8px}
+ .ehx-morph-copy h2{font-size:36px;letter-spacing:-1px;margin:10px 0}.ehx-morph-copy>p{font-size:11px;line-height:1.65;max-width:100%}
+ .ehx-morph-nav{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:3px;margin-top:10px;max-width:none}
+ .ehx-morph-nav button{justify-content:center;gap:6px;font-size:9px;padding:8px 4px}
+ .ehx-morph-progress{margin-top:8px;max-width:none}.ehx-morph-caption{margin-top:6px;font-size:8px}
+ .ehx-morph-art{height:100%;min-height:190px;max-height:42vh}.ehx-morph-art-label,.ehx-morph-art-foot{font-size:7px;letter-spacing:1px}
+ .ehx-morph-scroll{font-size:7px;letter-spacing:1px;padding-top:6px}
+}
+@media(prefers-reduced-motion:reduce){.ehx-morph-nav button{transition:none}}
