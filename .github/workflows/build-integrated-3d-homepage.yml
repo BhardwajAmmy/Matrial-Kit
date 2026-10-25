@@ -12,7 +12,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-      - name: Check that the new 3D hero and original content are present
+      - name: Check hero integration and retained source sections
         run: |
           grep -q 'class="ehx-room-canvas"' index.html
           grep -q 'assets/material-room.js' index.html
@@ -29,27 +29,37 @@ jobs:
           grep -q 'function initScene(root)' assets/story.js
           grep -q 'CFG_Wall_Left_Rear' assets/material-room.js
           grep -q 'CFG_Wall_Right' assets/material-room.js
-      - name: Check JavaScript syntax
+      - name: Check module syntax
         run: |
           node --input-type=module --check < assets/material-room.js
           node --input-type=module --check < assets/story.js
-      - name: Build complete standalone and WordPress packages
+      - name: Install browser test tools
+        run: |
+          npm init -y
+          npm install playwright
+          npx playwright install --with-deps chromium
+      - name: Run desktop and mobile browser smoke tests
+        run: |
+          python3 -m http.server 4173 --directory . >/tmp/exacthousing-http.log 2>&1 &
+          for i in $(seq 1 20); do curl -fsS http://127.0.0.1:4173/index.html >/dev/null && break || sleep 1; done
+          node tests/room-homepage-smoke.cjs
+      - name: Build standalone and WordPress packages
         run: |
           rm -rf dist
           mkdir -p dist/standalone/assets dist/wordpress/exacthousing-homepage/assets
           cp index.html README-INSTALL.txt dist/standalone/
           cp assets/story.css assets/story.js assets/material-room.js dist/standalone/assets/
           (cd dist/standalone && zip -qr ../exacthousing-3d-homepage-standalone.zip .)
-          cp index.html dist/wordpress/exacthousing-homepage/assets/template-full.html
+          cp wordpress-plugin/assets/template-full.html dist/wordpress/exacthousing-homepage/assets/
           cp assets/story.css assets/story.js assets/material-room.js dist/wordpress/exacthousing-homepage/assets/
           cp wordpress-plugin/exacthousing-homepage.php dist/wordpress/exacthousing-homepage/
           cp wordpress-plugin/readme.txt dist/wordpress/exacthousing-homepage/
           (cd dist/wordpress && zip -qr ../exacthousing-3d-homepage-wordpress-plugin.zip exacthousing-homepage)
-      - name: Validate ZIPs
+      - name: Validate packages and PHP
         run: |
+          php -l wordpress-plugin/exacthousing-homepage.php
           unzip -t dist/exacthousing-3d-homepage-standalone.zip
           unzip -t dist/exacthousing-3d-homepage-wordpress-plugin.zip
-          php -l wordpress-plugin/exacthousing-homepage.php
           unzip -p dist/exacthousing-3d-homepage-wordpress-plugin.zip exacthousing-homepage/assets/template-full.html | grep -q 'id="ehx-journey"'
           unzip -p dist/exacthousing-3d-homepage-wordpress-plugin.zip exacthousing-homepage/assets/material-room.js | grep -q 'OrbitControls'
       - name: Upload install packages
