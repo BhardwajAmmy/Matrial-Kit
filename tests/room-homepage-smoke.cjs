@@ -31,6 +31,7 @@ const assert = require('node:assert/strict');
       return {
         room: !!room && room.width > 0 && room.height > 0,
         cssUrl: cssLink?.getAttribute('href') || '',
+        roomJsUrl: [...document.querySelectorAll('script[type=module][src]')].map(s=>s.getAttribute('src')).find(s=>s.includes('material-room.js')) || '',
         configuratorMaxWidth: document.querySelector('.ehx-configurator')?.getBoundingClientRect().width || 0,
         configuratorDisplay: style.display,
         materialColumnDisplay: materialColumnStyle.display,
@@ -69,7 +70,8 @@ const assert = require('node:assert/strict');
     assert.ok(renderLuminance > 65, 'room render is too dark: average luminance ' + renderLuminance.toFixed(1));
     assert.ok(darkPixelRatio < 0.32, 'room render has too many black pixels: ' + (darkPixelRatio * 100).toFixed(1) + '%');
 
-    assert.ok(desktop.cssUrl.includes('story.css?v=1.0.2'), 'stylesheet cache key must be fresh');
+    assert.ok(desktop.cssUrl.includes('story.css?v=1.0.3'), 'stylesheet cache key must be fresh');
+    assert.ok(desktop.roomJsUrl.includes('material-room.js?v=1.0.3'), 'room JavaScript must have fresh cache key');
     assert.ok(desktop.configuratorMaxWidth <= 465.5, 'material panel must stay under 466px on desktop');
     assert.ok(desktop.materialColumnGridTemplate.includes('78px'), 'compact material heading should stay narrow');
     assert.equal(desktop.configuratorDisplay, 'block', 'compact configurator must use the expected display mode');
