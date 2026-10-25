@@ -43,6 +43,13 @@ jobs:
           python3 -m http.server 4173 --directory . >/tmp/exacthousing-http.log 2>&1 &
           for i in $(seq 1 20); do curl -fsS http://127.0.0.1:4173/index.html >/dev/null && break || sleep 1; done
           node tests/room-homepage-smoke.cjs
+      - name: Upload visual browser screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: exacthousing-browser-visual-check
+          path: artifacts/*.png
+          if-no-files-found: ignore
       - name: Build standalone and WordPress packages
         run: |
           rm -rf dist
