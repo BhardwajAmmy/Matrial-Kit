@@ -48,7 +48,7 @@ const assert = require('node:assert/strict');
       };
     });
     assert.equal(desktop.room, true, 'room canvas should initialise');
-    assert.match(desktop.cssUrl, /story\\.css\\?v=1\\.0\\.1$/, 'stylesheet cache key must be fresh');
+    assert.ok(desktop.cssUrl.includes('story.css?v=1.0.1'), 'stylesheet cache key must be fresh');
     assert.ok(desktop.configuratorMaxWidth <= 465.5, 'material panel must stay under 466px on desktop');
     assert.equal(desktop.configuratorDisplay, 'block', 'compact configurator must use the expected display mode');
     assert.equal(desktop.materialColumnDisplay, 'grid', 'surface controls must use the compact inline grid');
