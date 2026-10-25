@@ -520,3 +520,85 @@ html,body{margin:0!important;padding:0!important;width:100%;min-height:100%;back
 @media(prefers-reduced-motion:reduce){
   .ehx .ehx-material-room-image,.ehx .ehx-material-hotspot,.ehx .ehx-material-swatch,.ehx .ehx-material-look,.ehx .ehx-material-primary{transition:none!important}
 }
+
+/* ExactHousing real 3D hero integration: restrained controls, original story below. */
+.ehx .ehx-home-hero{background:var(--paper);position:relative;padding:clamp(28px,3.5vw,52px) clamp(22px,5.5vw,82px) 23px;min-height:0;margin:0}
+.ehx .ehx-home-hero .ehx-hero-grid{width:100%;max-width:1480px;margin:0 auto;display:grid;grid-template-columns:minmax(250px,.72fr) minmax(0,1.28fr);gap:clamp(22px,3.6vw,56px);align-items:center}
+.ehx .ehx-hero-copy{max-width:460px;padding:18px 0 24px clamp(0px,1.1vw,18px)}
+.ehx .ehx-home-hero .ehx-eyebrow{margin-bottom:19px}
+.ehx .ehx-home-hero .ehx-hero-copy h1{font:400 clamp(52px,5.7vw,82px)/.99 var(--serif);letter-spacing:-.055em;margin:0 0 20px;color:var(--ink)}
+.ehx .ehx-home-hero .ehx-hero-copy h1 em{color:var(--clay);font-style:italic}
+.ehx .ehx-home-hero .ehx-lead{max-width:405px;color:var(--muted);font-size:13px;line-height:1.85;margin:0}
+.ehx .ehx-home-hero .ehx-actions{display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin-top:23px}
+.ehx .ehx-home-hero .ehx-proof{display:flex;gap:clamp(12px,1.5vw,23px);border-top:1px solid var(--line);margin-top:29px;padding-top:14px}
+.ehx .ehx-home-hero .ehx-proof strong{font:400 22px var(--serif);display:block;color:var(--ink)}
+.ehx .ehx-home-hero .ehx-proof span{font-size:8px;line-height:1.4;color:#84877c;display:block;margin-top:3px}
+.ehx .ehx-home-hero .ehx-small-note{font-size:7px;letter-spacing:1.4px;color:#949184;margin:23px 0 0}
+.ehx .ehx-room-area{min-width:0;width:100%;max-width:none}
+.ehx .ehx-room-topline,.ehx .ehx-room-caption{display:flex;align-items:center;justify-content:space-between;gap:12px;color:#7d8176;font-size:7px;letter-spacing:1.2px;line-height:1.5}
+.ehx .ehx-room-topline{padding:0 0 8px}
+.ehx .ehx-viewer{height:clamp(335px,48vh,500px);min-height:320px;position:relative;overflow:hidden;isolation:isolate;border:1px solid rgba(32,43,36,.14);background:radial-gradient(ellipse at 58% 34%,#e6dfd1 0%,#c9c2b4 45%,#8b8c7c 100%)}
+.ehx .ehx-viewer:after{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(90deg,rgba(22,40,30,.04),transparent 45%,rgba(22,40,30,.025))}
+.ehx .ehx-room-canvas{display:block;position:absolute;inset:0;width:100%;height:100%;z-index:1;touch-action:none;cursor:grab;outline:none}
+.ehx .ehx-room-canvas:active{cursor:grabbing}
+.ehx .ehx-loading{position:absolute;inset:0;display:grid;place-items:center;z-index:5;background:#ded7c7;color:#435349;font-size:10px;letter-spacing:1.2px;transition:opacity .35s}
+.ehx .ehx-loading.hidden{opacity:0;pointer-events:none}
+.ehx .ehx-viewer-badge{position:absolute;bottom:10px;left:10px;z-index:4;pointer-events:none;background:rgba(24,42,33,.78);color:#f3f0e8;font-size:7px;letter-spacing:1px;padding:7px 9px}
+.ehx .ehx-reset-camera{position:absolute;top:10px;right:10px;z-index:4;border:1px solid rgba(32,54,47,.2);background:rgba(248,246,239,.9);color:#25392f;padding:6px 8px;font-size:8px}
+.ehx .ehx-hotspot{position:absolute;z-index:4;display:flex;align-items:center;gap:5px;padding:4px 8px 4px 4px;border:1px solid rgba(247,244,235,.85);border-radius:99px;background:rgba(28,46,36,.78);color:#fff;font-size:8px;box-shadow:0 4px 12px rgba(20,24,18,.12);cursor:pointer;backdrop-filter:blur(7px);transition:transform .2s,background .2s}
+.ehx .ehx-hotspot:hover,.ehx .ehx-hotspot.active{background:var(--clay);transform:translateY(-1px)}
+.ehx .ehx-hotspot>span{width:17px;height:17px;border:1px solid rgba(255,255,255,.8);border-radius:50%;display:grid;place-items:center;font-size:12px;line-height:1;flex:none}
+.ehx .ehx-hotspot-wall{top:30%;left:45%}.ehx .ehx-hotspot-cabinet{top:47%;left:71%}.ehx .ehx-hotspot-floor{top:76%;left:50%}.ehx .ehx-hotspot-counter{top:59%;left:66%}
+.ehx .ehx-room-caption{padding:7px 0 0;font-size:6px;letter-spacing:1.05px}
+.ehx .ehx-configurator{width:min(465px,100%);max-width:100%;margin:8px 0 0;background:transparent;border:0;box-shadow:none}
+.ehx .ehx-config-grid{display:block;min-width:0}
+.ehx .ehx-material-column{position:relative;display:grid;grid-template-columns:78px minmax(0,1fr) 31px;grid-template-rows:auto auto auto;column-gap:9px;row-gap:2px;align-items:center;min-width:0;padding:6px 8px;border:1px solid rgba(32,54,47,.15);border-radius:4px;background:rgba(251,249,244,.82);box-shadow:none}
+.ehx .ehx-config-heading{grid-column:1;grid-row:1/4;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;min-width:0;padding:0 7px 0 0;border-right:1px solid var(--line)}
+.ehx .ehx-section-kicker{font-size:6px;letter-spacing:1.1px;font-weight:600;color:#8a7b64;line-height:1.3}
+.ehx .ehx-config-heading h2{font:400 14px/1.12 var(--serif);letter-spacing:-.2px;margin:4px 0 0;color:var(--ink)}
+.ehx .ehx-tabs{grid-column:2;grid-row:1;display:flex;align-items:center;gap:9px;margin:0;border:0;overflow:visible}
+.ehx .ehx-tab{border:0;border-bottom:1px solid transparent;background:transparent;color:#777c71;font-size:7px;padding:2px 0 3px;white-space:nowrap}
+.ehx .ehx-tab.active{border-bottom-color:var(--clay);color:var(--ink);font-weight:600}
+.ehx .ehx-options{grid-column:2;grid-row:2;display:grid;grid-template-columns:repeat(3,minmax(0,78px));gap:4px;margin:2px 0 0;min-width:0}
+.ehx .ehx-option{border:1px solid transparent;background:transparent;padding:2px;min-width:0;text-align:left;color:var(--ink);transition:border-color .15s,background .15s}
+.ehx .ehx-option:hover{background:#f0ede5}
+.ehx .ehx-option.active{border-color:#758576;background:#fffdf7}
+.ehx .ehx-swatch{height:17px;display:block;width:100%;margin-bottom:3px;border:1px solid rgba(30,39,30,.1);position:relative;overflow:hidden}
+.ehx .ehx-option-name{font-size:6.5px;line-height:1.15;display:block;overflow-wrap:anywhere}
+.ehx .ehx-selection-note{grid-column:2;grid-row:3;font-size:6.5px;color:#777b70;margin:1px 0 0;line-height:1.2}
+.ehx .ehx-reset-materials{grid-column:3;grid-row:1/4;align-self:center;justify-self:center;border:0;background:transparent;color:#677064;font-size:7px;padding:2px;text-decoration:underline;text-underline-offset:2px;white-space:nowrap;writing-mode:vertical-rl}
+.ehx .ehx-scroll-cue{display:flex;align-items:center;justify-content:center;gap:10px;color:#7c8176;font-size:7px;letter-spacing:1.5px;padding-top:15px}
+.ehx .ehx-scroll-icon{width:16px;height:22px;border:1px solid #a9ac9e;border-radius:99px;display:grid;place-items:center;color:#a66f4c;font-size:10px}
+@media(max-width:1000px){
+ .ehx .ehx-home-hero .ehx-hero-grid{grid-template-columns:minmax(220px,.68fr) minmax(0,1.32fr);gap:20px}
+ .ehx .ehx-home-hero .ehx-hero-copy h1{font-size:clamp(47px,6vw,65px)}
+ .ehx .ehx-viewer{height:clamp(310px,43vh,430px)}
+ .ehx .ehx-configurator{width:min(440px,100%)}
+ .ehx .ehx-material-column{grid-template-columns:70px minmax(0,1fr) 30px;column-gap:6px;padding:6px}
+ .ehx .ehx-tabs{gap:7px}.ehx .ehx-tab{font-size:6.5px}
+ .ehx .ehx-options{grid-template-columns:repeat(3,minmax(0,72px));gap:3px}
+}
+@media(max-width:760px){
+ .ehx .ehx-home-hero{padding:28px 20px 19px}
+ .ehx .ehx-home-hero .ehx-hero-grid{grid-template-columns:1fr;gap:18px}
+ .ehx .ehx-hero-copy{padding:8px 0 0;max-width:620px}
+ .ehx .ehx-home-hero .ehx-hero-copy h1{font-size:clamp(48px,10vw,66px);margin:16px 0}
+ .ehx .ehx-home-hero .ehx-lead{font-size:12px}
+ .ehx .ehx-home-hero .ehx-proof{margin-top:19px;padding-top:12px}
+ .ehx .ehx-home-hero .ehx-small-note{margin-top:15px}
+ .ehx .ehx-viewer{height:clamp(310px,56vw,410px);min-height:300px}
+ .ehx .ehx-configurator{width:min(465px,100%)}
+ .ehx .ehx-room-caption{font-size:6px}
+ .ehx .ehx-scroll-cue{font-size:6px;letter-spacing:1px}
+}
+@media(max-width:500px){
+ .ehx .ehx-material-column{grid-template-columns:62px minmax(0,1fr) 23px;column-gap:5px;padding:5px}
+ .ehx .ehx-config-heading h2{font-size:12px}.ehx .ehx-section-kicker{font-size:5px;letter-spacing:.7px}
+ .ehx .ehx-tabs{gap:5px}.ehx .ehx-tab{font-size:6px}
+ .ehx .ehx-options{grid-template-columns:repeat(3,minmax(0,1fr));gap:2px}
+ .ehx .ehx-swatch{height:14px}.ehx .ehx-option-name{font-size:5.8px}
+ .ehx .ehx-reset-materials{font-size:6px}
+}
+@media(prefers-reduced-motion:reduce){
+ .ehx .ehx-hotspot,.ehx .ehx-option,.ehx .ehx-button{transition:none!important}
+}

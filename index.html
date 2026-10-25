@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en"><head>
-<style>html,body{margin:0;padding:0;width:100%;min-height:100%;background:#f3efe6}body{overflow-x:hidden}*{box-sizing:border-box}</style><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#17271f"><title>ExactHousing — Shape the space</title><meta name="description" content="Residential design and home planning with an interactive material configurator and scroll-led story."><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="./assets/story.css?v=0.9.1"></head><body>
-    <div class="ehx" id="ehx-home-story" data-whatsapp="">
+<style>html,body{margin:0;padding:0;width:100%;min-height:100%;background:#f3efe6}body{overflow-x:hidden}*{box-sizing:border-box}</style><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#17271f"><title>ExactHousing — Shape the space</title><meta name="description" content="Residential design and home planning with an interactive material configurator and scroll-led story."><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="./assets/story.css?v=0.9.1"><script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/"}}</script></head><body>
+    <div class="ehx ehx-site" id="ehx-home-story" data-whatsapp="">
       <header class="ehx-header">
         <a class="ehx-brand" href="#ehx-home-story" aria-label="ExactHousing home">
           <svg class="ehx-mark" viewBox="0 0 42 42" aria-hidden="true"><path d="M5 35V13L21 4l16 9v22M11 35V17l10-6 10 6v18M17 35V23h8v12"/><path d="M3 38h36"/></svg>
@@ -14,62 +14,62 @@
         <button class="ehx-menu" type="button" aria-label="Open navigation" aria-expanded="false"><span></span><span></span></button>
       </header>
       <main class="ehx-main">
-      <section class="ehx-configurator-hero" id="ehx-material-study" aria-labelledby="ehx-material-title" data-flooring="travertine" data-cabinetry="oak" data-walls="limewash" data-active-surface="flooring">
-        <div class="ehx-material-photo" aria-hidden="true">
-          <img class="ehx-material-room-image is-active" data-scene-image="warm" src="./assets/ehx-scene-warm.webp" alt="" decoding="async" fetchpriority="high">
-          <img class="ehx-material-room-image" data-scene-image="contrast" src="./assets/ehx-scene-contrast.webp" alt="" decoding="async" loading="eager">
-          <img class="ehx-material-room-image" data-scene-image="earth" src="./assets/ehx-scene-earth.webp" alt="" decoding="async" loading="eager">
-          <div class="ehx-material-image-shade"></div>
-        </div>
-<div class="ehx-material-topline"><span>EXACTHOUSING <b>/</b> MATERIAL STUDIO 001</span><span>INTERIOR STUDY <b>·</b> CONCEPTUAL FINISHES</span></div>
-        <div class="ehx-material-copy">
-          <p class="ehx-eyebrow"><span class="ehx-eyebrow-line"></span> Interior design · Material study</p>
-          <h1 id="ehx-material-title">Shape the<br><em>space.</em></h1>
-          <p class="ehx-material-lede">Same room. Different materials. Explore how considered finishes can change the feeling of a home before a single thing is built.</p>
-          <div class="ehx-material-hero-actions"><a class="ehx-material-primary" href="#ehx-material-dock" data-explore-materials>Explore materials <span aria-hidden="true">↗</span></a><a class="ehx-material-secondary" href="#ehx-journey">See how it comes together <span aria-hidden="true">↓</span></a></div>
-          <div class="ehx-material-proof"><span><b>03</b> SURFACES</span><i></i><span><b>09</b> FINISHES</span><i></i></div>
-        </div>
-        <div class="ehx-material-hotspots" role="group" aria-label="Select a room surface">
-          <button class="ehx-material-hotspot ehx-hotspot-wall" type="button" data-surface-target="walls" aria-label="Choose wall finishes"><span class="ehx-hotspot-plus">+</span><span>Walls</span></button>
-          <button class="ehx-material-hotspot ehx-hotspot-cabinet" type="button" data-surface-target="cabinetry" aria-label="Choose cabinetry finishes"><span class="ehx-hotspot-plus">+</span><span>Cabinetry</span></button>
-          <button class="ehx-material-hotspot ehx-hotspot-floor" type="button" data-surface-target="flooring" aria-label="Choose flooring materials"><span class="ehx-hotspot-plus">+</span><span>Flooring</span></button>
-        </div>
-        <div class="ehx-material-dock" id="ehx-material-dock" role="region" aria-label="Interactive material configurator">
-          <div class="ehx-material-dock-intro"><small>01 / MATERIAL STUDY</small><strong data-active-surface-name>Flooring</strong><p data-active-surface-copy>Set the foundation. Change the texture, tone and character underfoot.</p><span class="ehx-material-live"><i></i> CONCEPT STUDY</span><span class="ehx-material-behaviour">Illustrative finish study. The images show visual directions, not individual live surface changes.</span></div>
-          <div class="ehx-material-picker">
-            <div class="ehx-material-tabs" role="tablist" aria-label="Choose a surface">
-              <button type="button" role="tab" data-surface-tab="flooring" aria-selected="true" class="is-active">01 <span>Flooring</span></button>
-              <button type="button" role="tab" data-surface-tab="cabinetry" aria-selected="false">02 <span>Cabinetry</span></button>
-              <button type="button" role="tab" data-surface-tab="walls" aria-selected="false">03 <span>Walls</span></button>
-            </div>
-            <div class="ehx-material-options is-active" data-options-for="flooring" role="group" aria-label="Flooring material options">
-              <button type="button" class="ehx-material-swatch" data-surface="flooring" data-material-value="oak" aria-pressed="false"><span class="ehx-swatch-tile ehx-swatch-oak"></span><span>Natural oak</span><i>✓</i></button>
-              <button type="button" class="ehx-material-swatch is-selected" data-surface="flooring" data-material-value="travertine" aria-pressed="true"><span class="ehx-swatch-tile ehx-swatch-travertine"></span><span>Travertine</span><i>✓</i></button>
-              <button type="button" class="ehx-material-swatch" data-surface="flooring" data-material-value="terrazzo" aria-pressed="false"><span class="ehx-swatch-tile ehx-swatch-terrazzo"></span><span>Dark terrazzo</span><i>✓</i></button>
-            </div>
-            <div class="ehx-material-options" data-options-for="cabinetry" role="group" aria-label="Cabinetry material options" hidden>
-              <button type="button" class="ehx-material-swatch is-selected" data-surface="cabinetry" data-material-value="oak" aria-pressed="true"><span class="ehx-swatch-tile ehx-swatch-oak"></span><span>White oak</span><i>✓</i></button>
-              <button type="button" class="ehx-material-swatch" data-surface="cabinetry" data-material-value="walnut" aria-pressed="false"><span class="ehx-swatch-tile ehx-swatch-walnut"></span><span>Smoked walnut</span><i>✓</i></button>
-              <button type="button" class="ehx-material-swatch" data-surface="cabinetry" data-material-value="olive" aria-pressed="false"><span class="ehx-swatch-tile ehx-swatch-olive"></span><span>Olive matte</span><i>✓</i></button>
-            </div>
-            <div class="ehx-material-options" data-options-for="walls" role="group" aria-label="Wall finish options" hidden>
-              <button type="button" class="ehx-material-swatch is-selected" data-surface="walls" data-material-value="limewash" aria-pressed="true"><span class="ehx-swatch-tile ehx-swatch-limewash"></span><span>Limewash</span><i>✓</i></button>
-              <button type="button" class="ehx-material-swatch" data-surface="walls" data-material-value="plaster" aria-pressed="false"><span class="ehx-swatch-tile ehx-swatch-plaster"></span><span>Mineral plaster</span><i>✓</i></button>
-              <button type="button" class="ehx-material-swatch" data-surface="walls" data-material-value="clay" aria-pressed="false"><span class="ehx-swatch-tile ehx-swatch-clay"></span><span>Clay finish</span><i>✓</i></button>
-            </div>
-          </div>
-          <div class="ehx-material-presets"><small>CURATED LOOKS</small><div class="ehx-material-look-list">
-            <button type="button" class="ehx-material-look is-active" data-material-preset="warm" aria-pressed="true"><span class="ehx-look-preview ehx-look-warm"><img src="./assets/ehx-scene-warm.webp" alt="" loading="lazy" decoding="async"></span><span>Warm minimal</span><small>Calm & natural</small></button>
-            <button type="button" class="ehx-material-look" data-material-preset="contrast" aria-pressed="false"><span class="ehx-look-preview ehx-look-contrast"><img src="./assets/ehx-scene-contrast.webp" alt="" loading="lazy" decoding="async"></span><span>Modern contrast</span><small>Bold & refined</small></button>
-            <button type="button" class="ehx-material-look" data-material-preset="earth" aria-pressed="false"><span class="ehx-look-preview ehx-look-earth"><img src="./assets/ehx-scene-earth.webp" alt="" loading="lazy" decoding="async"></span><span>Earth & texture</span><small>Natural & grounded</small></button>
-          </div></div>
-          <button class="ehx-material-reset" type="button" data-material-reset aria-label="Reset all material selections"><span aria-hidden="true">↺</span><small>Reset all</small></button>
-        </div>
-        <p class="ehx-material-status" data-material-status aria-live="polite" role="status">Warm minimal palette selected.</p>
-        <a class="ehx-material-scroll" href="#ehx-journey"><span class="ehx-scroll-wheel" aria-hidden="true"></span> Scroll to see how the idea becomes a home <b aria-hidden="true">↓</b></a>
-      </section>
+      
+<section class="ehx-home-hero" id="ehx-material-study" aria-labelledby="ehx-material-title" data-ehx-app>
+  <div class="ehx-hero-grid">
+    <div class="ehx-hero-copy">
+      <p class="ehx-eyebrow"><span class="ehx-eyebrow-line"></span> DESIGN · PLAN · COORDINATE</p>
+      <h1 id="ehx-material-title">Shape<br><em>the space.</em></h1>
+      <p class="ehx-lead">A home is a collection of considered decisions. Explore a sample room in real-time 3D and see how the details change its character.</p>
+      <div class="ehx-actions">
+        <a class="ehx-button ehx-button-dark" href="#ehx-configurator">Explore finishes <span aria-hidden="true">↘</span></a>
+        <a class="ehx-text-link" href="#ehx-journey">See how it comes together</a>
+      </div>
+      <div class="ehx-proof">
+        <div><strong>01</strong><span>Move around in 3D</span></div>
+        <div><strong>02</strong><span>Change surfaces</span></div>
+        <div><strong>03</strong><span>Explore materials</span></div>
+      </div>
+      <p class="ehx-small-note">SAMPLE ROOM · MATERIAL STUDY</p>
+    </div>
 
-      <section class="ehx-journey" id="ehx-journey" aria-label="The process of making a home">
+    <div class="ehx-room-area">
+      <div class="ehx-room-topline"><span>EXACTHOUSING / MATERIAL STUDY 001</span><span>REAL-TIME 3D</span></div>
+      <div class="ehx-viewer">
+        <canvas class="ehx-room-canvas" aria-label="Interactive 3D room. Drag to rotate and use the scroll wheel to zoom."></canvas>
+        <div class="ehx-loading">Preparing the room…</div>
+        <div class="ehx-viewer-badge">DRAG TO ROTATE <i>·</i> SCROLL TO ZOOM</div>
+        <button class="ehx-reset-camera" type="button">Reset view ↺</button>
+        <button class="ehx-hotspot ehx-hotspot-wall" type="button" data-focus-category="walls" aria-label="Choose wall finishes"><span>+</span> Walls</button>
+        <button class="ehx-hotspot ehx-hotspot-cabinet" type="button" data-focus-category="cabinetry" aria-label="Choose cabinetry finishes"><span>+</span> Cabinetry</button>
+        <button class="ehx-hotspot ehx-hotspot-floor" type="button" data-focus-category="flooring" aria-label="Choose flooring materials"><span>+</span> Flooring</button>
+        <button class="ehx-hotspot ehx-hotspot-counter" type="button" data-focus-category="countertops" aria-label="Choose countertop materials"><span>+</span> Countertop</button>
+      </div>
+      <div class="ehx-room-caption"><span>OPEN-PLAN LIVING & KITCHEN</span><span>CLICK A SURFACE OR CHOOSE BELOW</span></div>
+
+      <div class="ehx-configurator" id="ehx-configurator" aria-label="Compact material study">
+        <div class="ehx-material-column">
+          <div class="ehx-config-heading">
+            <span class="ehx-section-kicker">MATERIAL STUDY</span>
+            <h2>Finishes</h2>
+          </div>
+          <div class="ehx-tabs" role="tablist" aria-label="Room surfaces">
+            <button type="button" class="ehx-tab active" data-cat="cabinetry" role="tab" aria-selected="true">Cabinetry</button>
+            <button type="button" class="ehx-tab" data-cat="walls" role="tab" aria-selected="false">Walls</button>
+            <button type="button" class="ehx-tab" data-cat="flooring" role="tab" aria-selected="false">Floor</button>
+            <button type="button" class="ehx-tab" data-cat="countertops" role="tab" aria-selected="false">Counter</button>
+          </div>
+          <div class="ehx-options" aria-live="polite"></div>
+          <div class="ehx-selection-note">Cabinetry · Natural oak</div>
+          <button type="button" class="ehx-reset-materials" aria-label="Reset material choices">Reset ↺</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="ehx-scroll-cue"><span class="ehx-scroll-icon">↓</span> SCROLL TO SEE HOW AN IDEA BECOMES A HOME</div>
+</section>
+
+<section class="ehx-journey" id="ehx-journey" aria-label="The process of making a home">
         <div class="ehx-journey-stage">
           <canvas class="ehx-canvas" aria-hidden="true"></canvas>
           <div class="ehx-scene-wash" aria-hidden="true"></div>
@@ -144,4 +144,4 @@
       <footer class="ehx-footer"><a class="ehx-brand" href="#ehx-home-story"><svg class="ehx-mark" viewBox="0 0 42 42" aria-hidden="true"><path d="M5 35V13L21 4l16 9v22M11 35V17l10-6 10 6v18M17 35V23h8v12M3 38h36"/></svg><span>ExactHousing<small>A home, thought through.</small></span></a><p>Thoughtful planning for independent homes.</p><a href="#ehx-home-story">Back to the beginning ↑</a></footer>
       <div class="ehx-toast" role="status" aria-live="polite"></div>
 
-</div><script src="./assets/material-configurator.js?v=0.9.0" defer></script><script type="module" src="./assets/story.js?v=0.9.1"></script></body></html>
+</div><script type="module" src="./assets/material-room.js?v=1.0.0"></script><script type="module" src="./assets/story.js?v=1.0.0"></script></body></html>

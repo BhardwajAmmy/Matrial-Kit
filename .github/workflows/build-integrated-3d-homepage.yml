@@ -1,0 +1,60 @@
+name: Build and validate ExactHousing integrated 3D homepage
+on:
+  push:
+    branches:
+      - exacthousing-real3d-integrated-v1
+  workflow_dispatch:
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Check that the new 3D hero and original content are present
+        run: |
+          grep -q 'class="ehx-room-canvas"' index.html
+          grep -q 'assets/material-room.js' index.html
+          ! grep -q 'ehx-scene-warm.webp' index.html
+          ! grep -q 'ehx-material-room-image' index.html
+          grep -q 'id="ehx-journey"' index.html
+          grep -q 'class="ehx-canvas"' index.html
+          grep -q 'data-chapter="4"' index.html
+          grep -q 'id="ehx-project"' index.html
+          grep -q 'id="ehx-services"' index.html
+          grep -q 'id="ehx-pricing"' index.html
+          grep -q 'id="ehx-contact"' index.html
+          grep -q 'grid-template-columns:78px minmax(0,1fr) 31px' assets/story.css
+          grep -q 'function initScene(root)' assets/story.js
+          grep -q 'CFG_Wall_Left_Rear' assets/material-room.js
+          grep -q 'CFG_Wall_Right' assets/material-room.js
+      - name: Check JavaScript syntax
+        run: |
+          node --input-type=module --check < assets/material-room.js
+          node --input-type=module --check < assets/story.js
+      - name: Build complete standalone and WordPress packages
+        run: |
+          rm -rf dist
+          mkdir -p dist/standalone/assets dist/wordpress/exacthousing-homepage/assets
+          cp index.html README-INSTALL.txt dist/standalone/
+          cp assets/story.css assets/story.js assets/material-room.js dist/standalone/assets/
+          (cd dist/standalone && zip -qr ../exacthousing-3d-homepage-standalone.zip .)
+          cp index.html dist/wordpress/exacthousing-homepage/assets/template-full.html
+          cp assets/story.css assets/story.js assets/material-room.js dist/wordpress/exacthousing-homepage/assets/
+          cp wordpress-plugin/exacthousing-homepage.php dist/wordpress/exacthousing-homepage/
+          cp wordpress-plugin/readme.txt dist/wordpress/exacthousing-homepage/
+          (cd dist/wordpress && zip -qr ../exacthousing-3d-homepage-wordpress-plugin.zip exacthousing-homepage)
+      - name: Validate ZIPs
+        run: |
+          unzip -t dist/exacthousing-3d-homepage-standalone.zip
+          unzip -t dist/exacthousing-3d-homepage-wordpress-plugin.zip
+          php -l wordpress-plugin/exacthousing-homepage.php
+          unzip -p dist/exacthousing-3d-homepage-wordpress-plugin.zip exacthousing-homepage/assets/template-full.html | grep -q 'id="ehx-journey"'
+          unzip -p dist/exacthousing-3d-homepage-wordpress-plugin.zip exacthousing-homepage/assets/material-room.js | grep -q 'OrbitControls'
+      - name: Upload install packages
+        uses: actions/upload-artifact@v4
+        with:
+          name: exacthousing-integrated-3d-homepage
+          path: dist/*.zip
+          if-no-files-found: error
