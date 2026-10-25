@@ -36,7 +36,7 @@ jobs:
       - name: Install browser test tools
         run: |
           npm init -y
-          npm install playwright
+          npm install playwright pngjs
           npx playwright install --with-deps chromium
       - name: Run desktop and mobile browser smoke tests
         run: |

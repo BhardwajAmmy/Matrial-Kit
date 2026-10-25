@@ -1,4 +1,5 @@
 const { chromium } = require('playwright');
+const { PNG } = require('pngjs');
 const fs = require('node:fs');
 fs.mkdirSync('artifacts', { recursive: true });
 const assert = require('node:assert/strict');
@@ -48,6 +49,26 @@ const assert = require('node:assert/strict');
       };
     });
     assert.equal(desktop.room, true, 'room canvas should initialise');
+
+    const roomPngBuffer = await page.locator('.ehx-room-canvas').screenshot();
+    const roomPng = PNG.sync.read(roomPngBuffer);
+    let sampled = 0, darkPixels = 0, luminanceSum = 0;
+    const x0 = Math.floor(roomPng.width * 0.14), x1 = Math.ceil(roomPng.width * 0.86);
+    const y0 = Math.floor(roomPng.height * 0.08), y1 = Math.ceil(roomPng.height * 0.72);
+    for (let y = y0; y < y1; y += 2) {
+      for (let x = x0; x < x1; x += 2) {
+        const i = (y * roomPng.width + x) * 4;
+        const lum = 0.2126 * roomPng.data[i] + 0.7152 * roomPng.data[i + 1] + 0.0722 * roomPng.data[i + 2];
+        luminanceSum += lum;
+        sampled++;
+        if (lum < 28) darkPixels++;
+      }
+    }
+    const renderLuminance = luminanceSum / Math.max(1, sampled);
+    const darkPixelRatio = darkPixels / Math.max(1, sampled);
+    assert.ok(renderLuminance > 65, 'room render is too dark: average luminance ' + renderLuminance.toFixed(1));
+    assert.ok(darkPixelRatio < 0.32, 'room render has too many black pixels: ' + (darkPixelRatio * 100).toFixed(1) + '%');
+
     assert.ok(desktop.cssUrl.includes('story.css?v=1.0.2'), 'stylesheet cache key must be fresh');
     assert.ok(desktop.configuratorMaxWidth <= 465.5, 'material panel must stay under 466px on desktop');
     assert.ok(desktop.materialColumnGridTemplate.includes('78px'), 'compact material heading should stay narrow');
@@ -95,7 +116,7 @@ const assert = require('node:assert/strict');
     await page.screenshot({ path: 'artifacts/mobile-homepage.png', fullPage: true });
     assert.deepEqual(errors, [], 'no unhandled browser JavaScript errors');
     assert.deepEqual(consoleErrors.filter(e => !e.includes('favicon')), [], 'no browser console errors');
-    console.log(JSON.stringify({ desktop, independent, mobile, pageErrors: errors, consoleErrors }, null, 2));
+    console.log(JSON.stringify({ desktop, independent, mobile, renderLuminance: Number(renderLuminance.toFixed(1)), darkPixelRatio: Number(darkPixelRatio.toFixed(3)), pageErrors: errors, consoleErrors }, null, 2));
   } finally {
     await browser.close();
   }
