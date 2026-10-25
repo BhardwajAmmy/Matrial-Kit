@@ -68,3 +68,15 @@ jobs:
           name: exacthousing-integrated-3d-homepage
           path: dist/*.zip
           if-no-files-found: error
+      - name: Upload standalone website separately
+        uses: actions/upload-artifact@v4
+        with:
+          name: exacthousing-standalone-website
+          path: dist/exacthousing-3d-homepage-standalone.zip
+          if-no-files-found: error
+      - name: Upload WordPress plugin separately
+        uses: actions/upload-artifact@v4
+        with:
+          name: exacthousing-wordpress-plugin
+          path: dist/exacthousing-3d-homepage-wordpress-plugin.zip
+          if-no-files-found: error
