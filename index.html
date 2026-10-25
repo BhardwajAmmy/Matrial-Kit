@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#18332a">
+<meta name="description" content="Explore residential design, 3D visualisation and material choices with ExactHousing.">
+<title>ExactHousing | Shape the Space</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/studio.css">
+<script type="module" src="assets/studio.js"></script>
+</head>
+<body>
+<header class="ehx-header">
+  <a class="ehx-brand" href="#" aria-label="ExactHousing home">ExactHousing<span>.</span><small>RESIDENTIAL DESIGN STUDIO</small></a>
+  <nav aria-label="Main navigation">
+    <a href="#studio">Material studio</a><a href="#process">Our approach</a><a href="#services">Services</a><a class="ehx-nav-cta" href="#contact">Start a project <span>↗</span></a>
+  </nav>
+</header>
+
+<main>
+<section class="ehx-home-hero" id="studio" data-ehx-app>
+  <div class="ehx-hero-grid">
+    <div class="ehx-hero-copy">
+      <div class="ehx-eyebrow"><span></span> DESIGN · PLAN · COORDINATE</div>
+      <h1>Shape<br><em>the space.</em></h1>
+      <p class="ehx-lead">A home is a collection of considered decisions. Explore materials in a real-time 3D room and discover how each finish changes the space.</p>
+      <div class="ehx-actions"><a class="ehx-button" href="#configurator">Explore materials <span>↘</span></a><a class="ehx-text-link" href="#process">See how it comes together</a></div>
+      <div class="ehx-proof">
+        <div><strong>01</strong><span>Move around in 3D</span></div>
+        <div><strong>02</strong><span>Change surfaces</span></div>
+        <div><strong>03</strong><span>Build your palette</span></div>
+      </div>
+      <p class="ehx-small-note">CONCEPTUAL ROOM · MATERIALS FOR EXPLORATION</p>
+    </div>
+
+    <div class="ehx-room-area">
+      <div class="ehx-room-topline"><span>EXACTHOUSING / MATERIAL STUDIO 001</span><span>REAL-TIME 3D STUDY</span></div>
+      <div class="ehx-viewer">
+        <canvas class="ehx-room-canvas" aria-label="Interactive 3D room. Drag to rotate and use the scroll wheel to zoom."></canvas>
+        <div class="ehx-loading">Preparing the room…</div>
+        <div class="ehx-viewer-badge">DRAG TO ROTATE <i>·</i> SCROLL TO ZOOM</div>
+        <button class="ehx-reset-camera" type="button">Reset view ↺</button>
+        <div class="ehx-hotspot ehx-hotspot-wall" data-focus-category="walls"><span>+</span> Walls</div>
+        <div class="ehx-hotspot ehx-hotspot-cabinet" data-focus-category="cabinetry"><span>+</span> Cabinetry</div>
+        <div class="ehx-hotspot ehx-hotspot-floor" data-focus-category="flooring"><span>+</span> Flooring</div>
+        <div class="ehx-hotspot ehx-hotspot-counter" data-focus-category="countertops"><span>+</span> Countertop</div>
+      </div>
+      <div class="ehx-room-caption"><span>01 / OPEN-PLAN LIVING & KITCHEN</span><span>SELECT A SURFACE TO BEGIN</span></div>
+    </div>
+  </div>
+
+  <div class="ehx-configurator" id="configurator">
+    <div class="ehx-config-grid">
+      <div class="ehx-material-column">
+        <div class="ehx-config-heading">
+          <div><span class="ehx-section-kicker">MATERIAL STUDIO</span><h2>Make it yours.</h2><p>Select a surface, then choose a finish.</p></div>
+          <span class="ehx-live-status">LIVE 3D</span>
+        </div>
+        <div class="ehx-tabs" role="tablist" aria-label="Room surfaces">
+          <button type="button" class="ehx-tab active" data-cat="cabinetry" role="tab">Cabinetry</button>
+          <button type="button" class="ehx-tab" data-cat="walls" role="tab">Walls</button>
+          <button type="button" class="ehx-tab" data-cat="flooring" role="tab">Flooring</button>
+          <button type="button" class="ehx-tab" data-cat="countertops" role="tab">Countertops</button>
+        </div>
+        <div class="ehx-options" aria-live="polite"></div>
+        <div class="ehx-selection-note">Cabinetry · Natural oak</div>
+      </div>
+      <div class="ehx-palette-column">
+        <div class="ehx-palette-header"><div><span class="ehx-section-kicker">CURATED PALETTES</span><h3>One room. Three moods.</h3></div><button type="button" class="ehx-reset-materials">Reset all ↺</button></div>
+        <div class="ehx-presets">
+          <button class="ehx-preset active" data-preset="warm" type="button"><span class="ehx-preset-swatches warm-swatches"><i></i><i></i><i></i></span><strong>Warm minimal</strong><small>Calm & natural</small></button>
+          <button class="ehx-preset" data-preset="contrast" type="button"><span class="ehx-preset-swatches contrast-swatches"><i></i><i></i><i></i></span><strong>Modern contrast</strong><small>Bold & refined</small></button>
+          <button class="ehx-preset" data-preset="earth" type="button"><span class="ehx-preset-swatches earth-swatches"><i></i><i></i><i></i></span><strong>Earth & texture</strong><small>Natural & grounded</small></button>
+        </div>
+        <div class="ehx-palette-foot"><span class="ehx-current-palette">WARM MINIMAL</span><span>Each finish updates its own 3D surfaces.</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="ehx-scroll-cue"><span class="ehx-scroll-icon">↓</span> SCROLL TO SEE HOW AN IDEA BECOMES A HOME</div>
+</section>
+
+<section class="ehx-process" id="process">
+  <div class="ehx-process-intro"><div><div class="ehx-eyebrow light"><span></span> THE MAKING OF A HOME</div><h2>Not just built.<br><em>Thought through.</em></h2></div><p>From the first sketch to the final finish, a better home begins with better decisions. We help make those decisions visible, practical and connected.</p></div>
+  <div class="ehx-process-grid">
+    <article><small>01 / THE IDEA</small><h3>Start with life.</h3><p>Understand the people, plot, priorities and daily routines behind the brief.</p></article>
+    <article><small>02 / THE PLAN</small><h3>Make space work.</h3><p>Explore room relationships, privacy, light, circulation and practical layouts.</p></article>
+    <article><small>03 / THE DETAILS</small><h3>See it before.</h3><p>Use 3D visualisation and finish studies to make design decisions with confidence.</p></article>
+    <article><small>04 / THE HOME</small><h3>Bring it together.</h3><p>Coordinate clear design information with the professionals delivering the work.</p></article>
+  </div>
+</section>
+
+<section class="ehx-services" id="services">
+  <div class="ehx-services-head"><div><div class="ehx-eyebrow"><span></span> HOW WE CAN HELP</div><h2>Good decisions, at every stage.</h2></div><p>A focused residential design service for people who want a well-planned home without the overhead of a large firm.</p></div>
+  <div class="ehx-service-grid">
+    <article><span>01</span><h3>House planning</h3><p>Concept layouts, furniture planning and spatial decisions around how you live.</p></article>
+    <article><span>02</span><h3>3D visualisation</h3><p>Exterior and interior views that help you understand the design before building.</p></article>
+    <article><span>03</span><h3>Drawing coordination</h3><p>Practical design documentation coordinated with the appropriate technical professionals.</p></article>
+  </div>
+</section>
+
+<section class="ehx-contact" id="contact"><div><div class="ehx-eyebrow light"><span></span> YOUR HOME STARTS WITH A CONVERSATION</div><h2>Tell us what you're<br><em>thinking of building.</em></h2></div><a href="mailto:hello@exacthousing.com" class="ehx-button light-button">Start a conversation ↗</a></section>
+</main>
+<footer class="ehx-footer"><span>EXACTHOUSING · RESIDENTIAL DESIGN STUDIO</span><span>DESIGN WITH INTENTION.</span></footer>
+</body>
+</html>
