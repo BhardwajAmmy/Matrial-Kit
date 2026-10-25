@@ -1,0 +1,28 @@
+name: Validate ExactHousing room studio
+on:
+  push:
+    branches:
+      - exacthousing-room-studio-v1
+  workflow_dispatch:
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Check JavaScript syntax
+        run: node --check assets/studio.js
+      - name: Check WordPress PHP syntax
+        run: php -l wordpress-plugin/exacthousing-material-studio.php
+      - name: Verify standalone ZIP
+        run: unzip -t downloads/exacthousing-standalone.zip
+      - name: Verify WordPress plugin ZIP
+        run: unzip -t downloads/exacthousing-wordpress-plugin.zip
+      - name: Check package contents
+        run: |
+          unzip -l downloads/exacthousing-standalone.zip
+          unzip -l downloads/exacthousing-wordpress-plugin.zip
+          unzip -p downloads/exacthousing-wordpress-plugin.zip exacthousing-material-studio/exacthousing-material-studio.php | grep -q "Plugin Name: ExactHousing Material Studio"
+          unzip -p downloads/exacthousing-wordpress-plugin.zip exacthousing-material-studio/assets/studio.js | grep -q "OrbitControls"
