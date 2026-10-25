@@ -12,6 +12,23 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
+      - name: Install browser test tools
+        run: |
+          npm init -y
+          npm install playwright
+          npx playwright install --with-deps chromium
+      - name: Run browser interaction tests
+        run: |
+          python3 -m http.server 4173 --directory . >/tmp/ehx-http.log 2>&1 &
+          for i in $(seq 1 20); do curl -fsS http://127.0.0.1:4173/index.html >/dev/null && break || sleep 1; done
+          node tests/room-studio-smoke.cjs
+      - name: Upload browser screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: exacthousing-room-studio-browser-shots
+          path: artifacts/*.png
+          if-no-files-found: ignore
       - name: Check JavaScript syntax
         run: node --check assets/studio.js
       - name: Check WordPress PHP syntax
