@@ -69,6 +69,9 @@ jobs:
           unzip -t dist/exacthousing-3d-homepage-wordpress-plugin.zip
           unzip -p dist/exacthousing-3d-homepage-wordpress-plugin.zip exacthousing-homepage/assets/template-full.html | grep -q 'id="ehx-journey"'
           unzip -p dist/exacthousing-3d-homepage-wordpress-plugin.zip exacthousing-homepage/assets/material-room.js | grep -q 'OrbitControls'
+          ! unzip -p dist/exacthousing-3d-homepage-wordpress-plugin.zip exacthousing-homepage/assets/template-full.html | grep -q '<header class="ehx-header">'
+          ! unzip -p dist/exacthousing-3d-homepage-wordpress-plugin.zip exacthousing-homepage/assets/template-full.html | grep -q '<footer class="ehx-footer">'
+          unzip -p dist/exacthousing-3d-homepage-wordpress-plugin.zip exacthousing-homepage/assets/template-full.html | grep -q 'id="ehx-journey"'
       - name: Upload install packages
         uses: actions/upload-artifact@v4
         with:
